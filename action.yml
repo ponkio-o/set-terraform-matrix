@@ -22,13 +22,13 @@ runs:
     - name: Install ci-info
       shell: bash
       run: |
-        curl -fL -o ci-info.tar.gz https://github.com/suzuki-shunsuke/ci-info/releases/download/v2.0.3/ci-info_2.0.3_linux_amd64.tar.gz
+        curl -fsSLO -o ci-info.tar.gz https://github.com/suzuki-shunsuke/ci-info/releases/download/v2.0.3/ci-info_2.0.3_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./ci-info.tar.gz
 
     - name: Install github-comment
       shell: bash
       run: |
-        sudo curl -fL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
+        sudo curl -fsSLO -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
 
     - name: Set Env
