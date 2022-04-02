@@ -11,10 +11,6 @@ inputs:
     default: ".github/workflows/deploy_target.json"
     required: false
     description: "path to deply_target.json"
-  hide_old_comment:
-    defalt: true
-    required: false
-    description: "Hide old plan comment"
 
 runs:
   using: "composite"
@@ -30,15 +26,6 @@ runs:
       run: |
         sudo curl -fL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
-
-    - name: Hide old comment
-      shell: bash
-      run: |
-        if [ ${{ inputs.hide_old_comment }} ]; then
-          github-comment hide -condition 'Comment.HasMeta && Comment.Meta.JobName contains "plan"'
-        else
-          echo "Skip hide old comment"
-        fi
 
     - name: Run ci-info
       shell: bash
