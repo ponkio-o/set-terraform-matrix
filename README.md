@@ -75,18 +75,17 @@ jobs:
 ```
 
 ## Usage
-Deploy to all enviornment
+Deploy to all enviornment  
 ![image](./images/deploy_to_all.png)
 
-Deploy to development & staging
+Deploy to development & staging  
 ![image](./images/deploy_to_dev_and_stg.png)
 
-If you target label is not set, the following message is post in PR.
-![image](./images/message.png)
-
-
-Note: **If `target:all` is included in multiple selections as follows, `target:all` always takes precedence.**
+If `target:all` is included in multiple selections as follows, `target:all` always takes precedence.  
 ![image](./images/include_target_all.png)
+
+If you target label is not set, the following message is post in PR.  
+![image](./images/message.png)
 
 ### Action inputs
 |Name                |Require|Description                                                                                                                                                                                      |Default                               |
