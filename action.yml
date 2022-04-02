@@ -11,6 +11,10 @@ inputs:
     default: ".github/workflows/deploy_target.json"
     required: false
     description: "path to deply_target.json"
+  token:
+    default: "${{ github.token }}"
+    required: false
+    description: "GITHUB_TOKEN"
 
 runs:
   using: "composite"
@@ -26,6 +30,12 @@ runs:
       run: |
         sudo curl -fL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
+
+    - name: Set Env
+      shell: bash
+      run: |
+        printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
+        printf "PR_NUMBER=%s" $(echo ${{ github.event.number }}) >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
