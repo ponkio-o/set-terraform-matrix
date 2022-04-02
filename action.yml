@@ -38,12 +38,11 @@ runs:
       shell: bash
       run: |
         printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
-        printf "PR_NUMBER=%s" ${{ inputs.pr_number }} >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
       run: |
-        PR_NUMBER=${{ inputs.pr_number }}
+        export PR_NUMBER=$(echo ${{ inputs.pr_number }})
         eval $(ci-info run --owner ${GITHUB_REPOSITORY%/*} --repo ${GITHUB_REPOSITORY#*/} --pr "$PR_NUMBER")
         printf "CI_INFO_TEMP_DIR=%s" $(echo $CI_INFO_TEMP_DIR) >> $GITHUB_ENV
 
