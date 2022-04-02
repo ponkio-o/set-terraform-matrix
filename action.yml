@@ -7,6 +7,9 @@ outputs:
     value: ${{ steps.set_matrix.outputs.value }}
 
 inputs:
+  pr_number:
+    required: true
+    description: "Set ${{ github.event.number }}"
   deploy_target_file:
     default: ".github/workflows/deploy_target.json"
     required: false
@@ -35,7 +38,7 @@ runs:
       shell: bash
       run: |
         printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
-        printf "PR_NUMBER=%s" $(echo ${{ github.event.number }}) >> $GITHUB_ENV
+        printf "PR_NUMBER=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
