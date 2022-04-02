@@ -38,7 +38,7 @@ runs:
       shell: bash
       run: |
         printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
-        printf "PR_NUMBER=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
+        printf "PR_NUMBER=%s" $(echo ${{ inputs.pr_number }}) >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
