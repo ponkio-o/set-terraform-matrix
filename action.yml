@@ -26,14 +26,14 @@ runs:
       shell: bash
       run: |
         CI_INFO_VERSION=2.0.3
-        curl -sSfL -o ci-info.tar.gz https://github.com/suzuki-shunsuke/ci-info/releases/download/v$CI_INFO_VERSION/ci-info_$CI_INFO_VERSION_linux_amd64.tar.gz
+        curl -sSfL -o ci-info.tar.gz https://github.com/suzuki-shunsuke/ci-info/releases/download/v${CI_INFO_VERSION}/ci-info_${CI_INFO_VERSION}_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./ci-info.tar.gz
 
     - name: Install github-comment
       shell: bash
       run: |
         GITHUB_COMMENT_VERSION=4.1.1
-        sudo curl -sSfL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v$GITHUB_COMMENT_VERSION/github-comment_$GITHUB_COMMENT_VERSION_linux_amd64.tar.gz
+        sudo curl -sSfL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
 
     - name: Set GITHUB_TOKEN
