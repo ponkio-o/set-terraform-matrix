@@ -66,12 +66,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-    - name: Setup terraform
-      uses: hashicorp/setup-terraform@v1
-
-    - name: Terraform plan
-      working-directory: ${{ matrix.workdir }}
-      run: terraform plan -input=false -no-color
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v1
+  
+      - name: Terraform plan
+        working-directory: ${{ matrix.workdir }}
+        run: terraform plan -input=false -no-color
 ```
 
 ## Usage
