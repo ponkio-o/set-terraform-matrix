@@ -2,12 +2,12 @@
 post:
   select-label:
     template: |
-      ## :exclamation: Please select target label
+      ## [ACTION REQUIRED] Please select target label
       Please select a deploy target from GitHub label. You can also select more than one.
       The deploy target directory is set in `{{.Vars.DEPLOY_TARGET_FILE}}`
 
       - `target:all`
-          - Deploy to all environment (**If multiple selections are included, `target:all` takes precedence.**)
+          - Deploy to all environment (**If multiple selections are included, `target:all` takes precedence**)
       - `target:production`
           - Deploy to production environment
       - `target:staging`
