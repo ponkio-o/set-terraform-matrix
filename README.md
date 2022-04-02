@@ -45,9 +45,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: Setup github-comment
-        uses: ./.github/workflows/composite/setup-terraform
-
       - name: Set matrix
         id: set_matrix
         uses: ponkio-o/set-terraform-matrix@main
