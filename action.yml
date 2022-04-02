@@ -1,0 +1,94 @@
+name: "Set matrix job workdir"
+description: "The composite actions are used to dynamically create the workdir used by the matrix."
+
+outputs:
+  matrix-workdir:
+    description: "Terraform working directory"
+    value: ${{ steps.set_matrix.outputs.value }}
+
+inputs:
+  deploy_target_file:
+    default: ".github/workflows/deploy_target.json"
+    required: false
+    description: "path to deply_target.json"
+  hide_old_comment:
+    defalt: true
+    required: false
+    description: "Hide old plan comment"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install ci-info
+      shell: bash
+      run: |
+        curl -fL -o ci-info.tar.gz https://github.com/suzuki-shunsuke/ci-info/releases/download/v2.0.3/ci-info_2.0.3_linux_amd64.tar.gz
+        sudo tar -C /usr/bin -xzf ./ci-info.tar.gz
+
+    - name: Install github-comment
+      shell: bash
+      run: |
+        sudo curl -fL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
+        sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
+
+    - name: Hide old comment
+      shell: bash
+      run: |
+        if [ ${{ inputs.hide_old_comment }} ]; then
+          github-comment hide -condition 'Comment.HasMeta && Comment.Meta.JobName contains "plan"'
+        else
+          echo "Skip hide old comment"
+        fi
+
+    - name: Run ci-info
+      shell: bash
+      run: |
+        eval $(ci-info run --owner ${GITHUB_REPOSITORY%/*} --repo ${GITHUB_REPOSITORY#*/} --pr "$PR_NUMBER")
+        printf "CI_INFO_TEMP_DIR=%s" $(echo $CI_INFO_TEMP_DIR) >> $GITHUB_ENV
+
+    - name: Set Deploy Target
+      shell: bash
+      id: set_matrix
+      run: |
+        exist_all_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:all" 2>&1 > /dev/null; echo $?)
+        exist_develop_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:develop" 2>&1 > /dev/null; echo $?)
+        exist_staging_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:staging" 2>&1 > /dev/null; echo $?)
+        exist_production_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:production" 2>&1 > /dev/null; echo $?)
+
+        if [ $exist_all_label = "0" ]; then
+          echo "Deploy all environment"
+          list=$(jq -c '.develop + .staging + .production' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_develop_label = "0" -a $exist_staging_label = "0" -a $exist_production_label = "0" ]; then
+          echo "Deploy all environment"
+          list=$(jq -c '.develop + .staging + .production' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_develop_label = "0" -a $exist_staging_label = "0" ]; then
+          echo "Deploy dev & stg"
+          list=$(jq -c '.develop + .staging' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_develop_label = "0" -a $exist_production_label = "0" ]; then
+          echo "Deploy dev & prod"
+          list=$(jq -c '.develop + .production' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_staging_label = "0" -a $exist_production_label = "0" ]; then
+          echo "Deploy stg & prod"
+          list=$(jq -c '.staging + .production' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_develop_label = "0" ]; then
+          echo "Deploy dev"
+          list=$(jq -c '.develop' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_staging_label = "0" ]; then
+          echo "Deploy stg"
+          list=$(jq -c '.staging' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        elif [ $exist_production_label = "0" ]; then
+          echo "Deploy prod"
+          list=$(jq -c '.production' ${{ inputs.deploy_target_file }})
+          echo "::set-output name=value::${list}"
+        else
+          github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${GITHUB_WORKSPACE}/.github-comment.yml -pr ${PR_NUMBER} -k select-label
+          exit 1
+        fi
+        echo "OUTPUT: $list"
