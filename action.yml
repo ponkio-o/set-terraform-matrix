@@ -34,7 +34,7 @@ runs:
         sudo curl -sSfL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v4.1.1/github-comment_4.1.1_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
 
-    - name: Set Env
+    - name: Set GITHUB_TOKEN
       shell: bash
       run: |
         printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
@@ -43,6 +43,7 @@ runs:
     - name: Run ci-info
       shell: bash
       run: |
+        PR_NUMBER=${{ inputs.pr_number }}
         eval $(ci-info run --owner ${GITHUB_REPOSITORY%/*} --repo ${GITHUB_REPOSITORY#*/} --pr "$PR_NUMBER")
         printf "CI_INFO_TEMP_DIR=%s" $(echo $CI_INFO_TEMP_DIR) >> $GITHUB_ENV
 
@@ -88,6 +89,7 @@ runs:
           list=$(jq -c '.production' ${{ inputs.deploy_target_file }})
           echo "::set-output name=value::${list}"
         else
+          export PR_NUMBER=$(echo ${{ inputs.pr_number }})
           export DEPLOY_TARGET_FILE=$(echo ${{ inputs.deploy_target_file }})
           github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${{ github.action_path }}/.github-comment.yml -pr ${PR_NUMBER} -k select-label -var DEPLOY_TARGET_FILE:${DEPLOY_TARGET_FILE}
           exit 1
