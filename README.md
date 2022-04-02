@@ -1,9 +1,20 @@
 # set-terraform-matrix
 This Action is used to dynamically generate Terraform's working directory using GitHub PR Label, in use with [build-matrix](https://docs.github.com/en/actions/using-jobs/using-a-build-matrix-for-your-jobs).
 
-## Usage
-First, create a json file in the following format. Specify the deployment stage as key and target directory as value.  
-A name or directory can be specified, but `.github/workflows/deploy_target.json` is used by default.
+## Setup
+### GitHub Label
+Create the following labels. Unnecessary labels can be omitted.
+
+- `target:all`
+- `target:develop`
+- `target:staging`
+- `target:production`
+
+https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label
+
+### Deploy target file
+Create a json file in the following format. Specify the deployment stage as key and target directory as value.  
+The config file name or directory can be specified, but `.github/workflows/deploy_target.json` is used by default.
 
 ```json
 {
@@ -20,6 +31,7 @@ A name or directory can be specified, but `.github/workflows/deploy_target.json`
 ```
 Currently supported keys are `develop` / `staging` / `production`.
 
+### Workflow
 GitHub Actions are configured as follows:
 ```yaml
 jobs:
@@ -62,9 +74,19 @@ jobs:
       run: terraform plan -input=false -no-color
 ```
 
-Next, create a PR with the target label.  
+## Usage
+Deploy to all enviornment
+![image](./images/deploy_to_all.png)
+
+Deploy to development & staging
+![image](./images/deploy_to_dev_and_stg.png)
+
 If you target label is not set, the following message is post in PR.
-![image](./message.png)
+![image](./images/message.png)
+
+
+Note: **If `target:all` is included in multiple selections as follows, `target:all` always takes precedence.**
+![image](./images/include_target_all.png)
 
 ### Action inputs
 |Name                |Require|Description                                                                                                                                                                                      |Default                               |
