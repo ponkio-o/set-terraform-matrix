@@ -38,11 +38,11 @@ runs:
       shell: bash
       run: |
         printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
+        printf "PR_NUMBER=%s" $(echo ${{ inputs.pr_number }}) >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
       run: |
-        export PR_NUMBER=$(echo ${{ inputs.pr_number }})
         eval $(ci-info run --owner ${GITHUB_REPOSITORY%/*} --repo ${GITHUB_REPOSITORY#*/} --pr "$PR_NUMBER")
         printf "CI_INFO_TEMP_DIR=%s" $(echo $CI_INFO_TEMP_DIR) >> $GITHUB_ENV
 
@@ -88,7 +88,6 @@ runs:
           list=$(jq -c '.production' ${{ inputs.deploy_target_file }})
           echo "::set-output name=value::${list}"
         else
-          export PR_NUMBER=$(echo ${{ inputs.pr_number }})
           export DEPLOY_TARGET_FILE=$(echo ${{ inputs.deploy_target_file }})
           github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${{ github.action_path }}/.github-comment.yml -pr ${PR_NUMBER} -k select-label -var DEPLOY_TARGET_FILE:${DEPLOY_TARGET_FILE}
           exit 1
