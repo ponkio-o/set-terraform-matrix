@@ -3,11 +3,11 @@ post:
   select-label:
     template: |
       ## :exclamation: Please select target label
-      You can select the target for deployment based on the label assigned to the PR.
-      The deploy target directory is set in `.github/workflows/deploy_target.json`
+      Please select a deploy target from GitHub label. You can also select more than one.
+      The deploy target directory is set in `{{.Vars.DEPLOY_TARGET_FILE}}`
 
       - `target:all`
-          - Deploy to all environment
+          - Deploy to all environment (**If multiple selections are included, `target:all` takes precedence.**)
       - `target:production`
           - Deploy to production environment
       - `target:staging`
