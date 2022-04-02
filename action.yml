@@ -9,7 +9,7 @@ outputs:
 inputs:
   pr_number:
     required: true
-    description: "Set ${{ github.event.number }}"
+    description: "Pull Request Number"
   deploy_target_file:
     default: ".github/workflows/deploy_target.json"
     required: false
