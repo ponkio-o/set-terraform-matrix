@@ -88,7 +88,7 @@ runs:
           list=$(jq -c '.production' ${{ inputs.deploy_target_file }})
           echo "::set-output name=value::${list}"
         else
-          github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${GITHUB_WORKSPACE}/.github-comment.yml -pr ${PR_NUMBER} -k select-label
+          github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${{ github.action_path }}/.github-comment.yml -pr ${PR_NUMBER} -k select-label
           exit 1
         fi
         echo "OUTPUT: $list"
