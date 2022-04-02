@@ -42,7 +42,7 @@ runs:
     - name: Run ci-info
       shell: bash
       run: |
-        export PR_NUMBER=$(echo ${{ inputs.pr_number }})
+        export PR_NUMBER=${{ inputs.pr_number }}
         eval $(ci-info run --owner ${GITHUB_REPOSITORY%/*} --repo ${GITHUB_REPOSITORY#*/} --pr "$PR_NUMBER")
         printf "CI_INFO_TEMP_DIR=%s" $(echo $CI_INFO_TEMP_DIR) >> $GITHUB_ENV
 
