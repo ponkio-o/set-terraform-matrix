@@ -1,3 +1,29 @@
 {
-  "extends": ["config:base"]
+  "extends": ["config:base"],
+  "regexManagers": [
+    {
+     "fileMatch": [
+      "^action.yml$"
+     ],
+     "matchStringsStrategy": "any",
+     "matchStrings": [
+      "GITHUB_COMMENT_VERSION=(?<currentValue>.*)"
+     ],
+     "extractVersionTemplate": "^v(?<version>.*)$",
+     "depNameTemplate": "suzuki-shunsuke/github-comment",
+     "datasourceTemplate": "github-tags"
+    },
+    {
+     "fileMatch": [
+      "^action.yml$"
+     ],
+     "matchStringsStrategy": "any",
+     "matchStrings": [
+      "CI_INFO_VERSION=(?<currentValue>.*)"
+     ],
+     "extractVersionTemplate": "^v(?<version>.*)$",
+     "depNameTemplate": "suzuki-shunsuke/ci-info",
+     "datasourceTemplate": "github-tags"
+    }
+  ]
 }
