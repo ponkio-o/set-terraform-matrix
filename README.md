@@ -87,7 +87,6 @@ If you target label is not set, the following message is post in PR.
 ### Action inputs
 |Name                |Require|Description                                                                                                                                                                                      |Default                               |
 |--------------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-|`pr_number`         |true   |Set `${{ github.event.number }}`                                                                                                                                                                 |None                                  |
 |`deploy_target_file`|false  |The json file defined the deploy target.                                                                                                                                                         |`.github/workflows/deploy_target.json`|
 |`token`             |false  |`GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN`                        |
 
