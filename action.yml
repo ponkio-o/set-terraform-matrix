@@ -7,9 +7,6 @@ outputs:
     value: ${{ steps.set_matrix.outputs.value }}
 
 inputs:
-  pr_number:
-    required: true
-    description: "Pull Request Number"
   deploy_target_file:
     default: ".github/workflows/deploy_target.json"
     required: false
