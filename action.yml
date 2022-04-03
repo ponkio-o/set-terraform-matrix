@@ -39,8 +39,8 @@ runs:
     - name: Set Env
       shell: bash
       run: |
-        printf "GITHUB_TOKEN=%s" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
-        printf "PR_NUMBER=%s" $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH") >> $GITHUB_ENV
+        printf "GITHUB_TOKEN=%s\n" $(echo ${{ inputs.token }}) >> $GITHUB_ENV
+        printf "PR_NUMBER=%s\n" $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH") >> $GITHUB_ENV
 
     - name: Run ci-info
       shell: bash
