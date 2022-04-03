@@ -11,7 +11,8 @@ inputs:
     required: true
     description: "Pull Request Number"
   deploy_target_file:
-    default: ".github/workflows/deploy_target.json" required: false
+    default: ".github/workflows/deploy_target.json"
+    required: false
     description: "path to deply_target.json"
   token:
     default: "${{ github.token }}"
