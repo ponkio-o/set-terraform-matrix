@@ -11,8 +11,7 @@ inputs:
     required: true
     description: "Pull Request Number"
   deploy_target_file:
-    default: ".github/workflows/deploy_target.json"
-    required: false
+    default: ".github/workflows/deploy_target.json" required: false
     description: "path to deply_target.json"
   token:
     default: "${{ github.token }}"
@@ -52,3 +51,7 @@ runs:
       shell: bash
       id: set_matrix
       run: ${{ github.action_path }}/main.sh
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+        DEPLOY_TARGET_FILE: ${{ inputs.deploy_target_file }}
+        PR_NUMBER: ${{ inputs.pr_number }}
