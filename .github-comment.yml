@@ -7,7 +7,7 @@ post:
       The deploy target directory is set in `{{.Vars.DEPLOY_TARGET_FILE}}`
 
       - `target:all`
-          - Deploy to all environment (**If multiple selections are included, `target:all` takes precedence**)
+          - Deploy to all environment (**If multiple labels are included, `target:all` takes precedence**)
       - `target:production`
           - Deploy to production environment
       - `target:staging`
