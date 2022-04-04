@@ -31,6 +31,18 @@ The config file name or directory can be specified, but `.github/workflows/deplo
 ```
 Currently supported keys are `develop` / `staging` / `production`.
 
+If you have unnecessary environment, it can be omitted.
+```json
+{
+    "staging": [
+        "envs/stg"
+    ],
+    "production": [
+        "envs/prod"
+    ]
+}
+```
+
 ### Workflow
 GitHub Actions are configured as follows:
 ```yaml
@@ -92,7 +104,7 @@ All inputs are optional.
 |`token`             |`GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN`                        |
 
 ### Action outputs
-The working directory i outputs as an array. If `target:all` is specified, the following array is output.
+The working directory outputs as an array. If `target:all` is specified, the following array is output.
 ```bash
 ["envs/dev","envs/stg","envs/prod"]
 ```
