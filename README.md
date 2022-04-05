@@ -60,8 +60,7 @@ jobs:
       - name: Set matrix
         id: set_matrix
         uses: ponkio-o/set-terraform-matrix@main
-        with:
-          PR_NUMBER: ${{ github.event.number }}
+
   plan:
     needs: [set-matrix]
     name: terraform plan
