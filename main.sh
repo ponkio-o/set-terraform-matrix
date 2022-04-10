@@ -1,9 +1,9 @@
 #!/bin/bash
 
-exist_all_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:all" 2>&1 > /dev/null; echo $?)
-exist_develop_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:develop" 2>&1 > /dev/null; echo $?)
-exist_staging_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:staging" 2>&1 > /dev/null; echo $?)
-exist_production_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "target:production" 2>&1 > /dev/null; echo $?)
+exist_all_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "$ALL_LABEL" 2>&1 > /dev/null; echo $?)
+exist_develop_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "$DEV_LABEL" 2>&1 > /dev/null; echo $?)
+exist_staging_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "$STG_LABEL" 2>&1 > /dev/null; echo $?)
+exist_production_label=$(cat $CI_INFO_TEMP_DIR/labels.txt | grep "$PROD_LABEL" 2>&1 > /dev/null; echo $?)
 
 if [ $exist_all_label = "0" ]; then
   echo "Deploy all environment"
