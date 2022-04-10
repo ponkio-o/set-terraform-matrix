@@ -6,11 +6,11 @@ post:
       Please select a deploy target from GitHub label. You can also select more than one.
       The deploy target directory is set in `{{.Vars.DEPLOY_TARGET_FILE}}`
 
-      - `target:all`
-          - Deploy to all environment (**If multiple labels are included, `target:all` takes precedence**)
-      - `target:production`
+      - `{{.Vars.ALL_LABEL}}`
+          - Deploy to all environment (**If multiple labels are included, `{{.Vars.ALL_LABEL}}` takes precedence**)
+      - `{{.Vars.PROD_LABEL}}`
           - Deploy to production environment
-      - `target:staging`
+      - `{{.Vars.STG_LABEL}}`
           - Deploy to staging environment
-      - `target:develop`
+      - `{{.Vars.DEV_LABEL}}`
           - Deploy to develop environment
