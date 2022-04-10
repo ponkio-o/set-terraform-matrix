@@ -15,6 +15,22 @@ inputs:
     default: "${{ github.token }}"
     required: false
     description: "GITHUB_TOKEN"
+  all_label:
+    default: "target:all"
+    required: false
+    description: "Label name on deploy to all environment"
+  dev_label:
+    default: "target:develop"
+    required: false
+    description: "Label name on deploy to development environment"
+  stg_label:
+    default: "target:staging"
+    required: false
+    description: "Label name on deploy to staging environment"
+  prod_label:
+    default: "target:production"
+    required: false
+    description: "Label name on deploy to production environment"
 
 runs:
   using: "composite"
@@ -52,3 +68,7 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
         DEPLOY_TARGET_FILE: ${{ inputs.deploy_target_file }}
+        ALL_LABEL: ${{ inputs.all_label }}
+        DEV_LABEL: ${{ inputs.dev_label }}
+        STG_LABEL: ${{ inputs.stg_label }}
+        PROD_LABEL: ${{ inputs.prod_label }}

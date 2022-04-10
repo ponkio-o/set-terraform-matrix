@@ -12,6 +12,8 @@ Create the following labels. Unnecessary labels can be omitted.
 
 https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label
 
+If you want to change the label name, you can specify it from [Action inputs](#action-inputs).
+
 ### Deploy target file
 Create a json file in the following format. Specify the deployment stage as key and target directory as value.  
 The config file name or directory can be specified, but `.github/workflows/deploy_target.json` is used by default.
@@ -97,10 +99,14 @@ If you target label is not set, the following message is post in PR.
 
 ### Action inputs
 All inputs are optional.
-|Name                |Description                                                                                                                                                                                      |Default                               |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-|`deploy_target_file`| The json file defined the deploy target.                                                                                                                                                         |`.github/workflows/deploy_target.json`|
-|`token`             |`GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN`                        |
+| Name                 | Description | Default |
+|----------------------|-------------|---------|
+| `deploy_target_file` | The json file defined the deploy target |`.github/workflows/deploy_target.json`|
+| `token`              | `GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN` |
+| `all_label`          | Label name on deploy to all enviornment | `target:all` |
+| `dev_label`          | Label name on deploy to development enviornment | `target:develop` |
+| `stg_label`          | Label name on deploy to staging enviornment | `target:staging` |
+| `prod_label`         | Label name on deploy to production enviornment | `target:production` |
 
 ### Action outputs
 The working directory outputs as an array. If `target:all` is specified, the following array is output.
