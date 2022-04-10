@@ -99,14 +99,14 @@ If you target label is not set, the following message is post in PR.
 
 ### Action inputs
 All inputs are optional.
-|Name                |Description                                                                                                                                                                                      |Default                               |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-|`deploy_target_file`| The json file defined the deploy target.                                                                                                                                                         |`.github/workflows/deploy_target.json`|
-|`token`             |`GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN`                        |
-|`all_label`             | Label name on deploy to all enviornment |`target:all`|
-|`dev_label`             | Label name on deploy to development enviornment |`target:develop`|
-|`stg_label`             | Label name on deploy to staging enviornment |`target:staging`|
-|`prod_label`             | Label name on deploy to production enviornment |`target:production`|
+| Name                 | Description | Default |
+|----------------------|-------------|---------|
+| `deploy_target_file` | The json file defined the deploy target |`.github/workflows/deploy_target.json`|
+| `token`              | `GITHUB_TOKEN` (permissions `pull-request: write`) or [PersonalAccessToken(PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)|`GITHUB_TOKEN` |
+| `all_label`          | Label name on deploy to all enviornment | `target:all` |
+| `dev_label`          | Label name on deploy to development enviornment | `target:develop` |
+| `stg_label`          | Label name on deploy to staging enviornment | `target:staging` |
+| `prod_label`         | Label name on deploy to production enviornment | `target:production` |
 
 ### Action outputs
 The working directory outputs as an array. If `target:all` is specified, the following array is output.
