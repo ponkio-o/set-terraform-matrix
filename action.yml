@@ -45,7 +45,7 @@ runs:
     - name: Install github-comment
       shell: bash
       run: |
-        GITHUB_COMMENT_VERSION=4.1.1
+        GITHUB_COMMENT_VERSION=4.2.0
         sudo curl -sSfL -o github-comment_linux_amd64.tar.gz https://github.com/suzuki-shunsuke/github-comment/releases/download/v${GITHUB_COMMENT_VERSION}/github-comment_${GITHUB_COMMENT_VERSION}_linux_amd64.tar.gz
         sudo tar -C /usr/bin -xzf ./github-comment_linux_amd64.tar.gz
 
