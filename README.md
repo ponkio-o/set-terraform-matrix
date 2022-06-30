@@ -48,6 +48,14 @@ If you have unnecessary environment, it can be omitted.
 ### Workflow
 GitHub Actions are configured as follows:
 ```yaml
+name: Terraform PR check
+
+on:
+  pull_request:
+    types: [synchronize, labeled]
+    branches:
+      - main
+
 jobs:
   set-matrix:
     runs-on: ubuntu-latest
@@ -82,6 +90,7 @@ jobs:
       - name: Terraform plan
         working-directory: ${{ matrix.workdir }}
         run: terraform plan -input=false -no-color
+...
 ```
 
 ## Usage
