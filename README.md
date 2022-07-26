@@ -52,7 +52,7 @@ name: Terraform PR check
 
 on:
   pull_request:
-    types: [synchronize, labeled]
+    types: [opened, labeled]
     branches:
       - main
 
