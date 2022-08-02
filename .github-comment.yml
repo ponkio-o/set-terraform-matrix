@@ -14,3 +14,5 @@ post:
           - Deploy to staging environment
       - `{{.Vars.DEV_LABEL}}`
           - Deploy to develop environment
+
+      {{.Vars.CUSTOM_COMMENT }}
