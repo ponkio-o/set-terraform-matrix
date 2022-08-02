@@ -31,6 +31,10 @@ inputs:
     default: "target:production"
     required: false
     description: "Label name on deploy to production environment"
+  custom_comment:
+    default: ""
+    required: false
+    description: "Additional comments (Markdown is supported)"
 
 runs:
   using: "composite"
@@ -72,3 +76,4 @@ runs:
         DEV_LABEL: ${{ inputs.dev_label }}
         STG_LABEL: ${{ inputs.stg_label }}
         PROD_LABEL: ${{ inputs.prod_label }}
+        CUSTOM_COMMENT: ${{ inputs.custom_comment }}

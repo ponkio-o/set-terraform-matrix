@@ -40,7 +40,7 @@ elif [ $exist_production_label = "0" ]; then
 else
   export PR_NUMBER=$(echo ${PR_NUMBER})
   export DEPLOY_TARGET_FILE=$(echo ${DEPLOY_TARGET_FILE})
-  github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${GITHUB_ACTION_PATH}/.github-comment.yml -pr ${PR_NUMBER} -k select-label -var DEPLOY_TARGET_FILE:${DEPLOY_TARGET_FILE} -var ALL_LABEL:${ALL_LABEL} -var DEV_LABEL:${DEV_LABEL} -var STG_LABEL:${STG_LABEL} -var PROD_LABEL:${PROD_LABEL}
+  github-comment post -org ${GITHUB_REPOSITORY%/*} -repo ${GITHUB_REPOSITORY#*/} --config ${GITHUB_ACTION_PATH}/.github-comment.yml -pr ${PR_NUMBER} -k select-label -var DEPLOY_TARGET_FILE:${DEPLOY_TARGET_FILE} -var ALL_LABEL:${ALL_LABEL} -var DEV_LABEL:${DEV_LABEL} -var STG_LABEL:${STG_LABEL} -var PROD_LABEL:${PROD_LABEL} -var CUSTOM_COMMENT:"${CUSTOM_COMMENT}"
   exit 1
 fi
 echo "OUTPUT: $list"

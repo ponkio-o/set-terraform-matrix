@@ -52,7 +52,7 @@ name: Terraform PR check
 
 on:
   pull_request:
-    types: [opened, labeled]
+    types: [opened]
     branches:
       - main
 
@@ -86,7 +86,7 @@ jobs:
 
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v1
-  
+
       - name: Terraform plan
         working-directory: ${{ matrix.workdir }}
         run: terraform plan -input=false -no-color
@@ -94,6 +94,7 @@ jobs:
 ```
 
 ## Usage
+### Deployment
 Deploy to all enviornment  
 ![image](./images/deploy_to_all.png)
 
@@ -103,8 +104,28 @@ Deploy to development & staging
 If `target:all` is included in multiple selections as follows, `target:all` always takes precedence.  
 ![image](./images/include_target_all.png)
 
+### Guide message
 If you target label is not set, the following message is post in PR.  
 ![image](./images/message.png)
+
+In addition, `custom_comment` input is available if you wish to add to the warning message.
+```yaml
+      - name: Set matrix
+        id: set_matrix
+        uses: ponkio-o/set-terraform-matrix@main
+        with:
+          custom_comment: "Please re-run the [workflow](https://github.com/ponkio-o/set-terraform-matrix/actions)"
+```
+Markdown is also available.
+```yaml
+      - name: Set matrix
+        id: set_matrix
+        uses: ponkio-o/set-terraform-matrix@main
+        with:
+          custom_comment: |
+            # Section 1
+            Text
+```
 
 ### Action inputs
 All inputs are optional.
@@ -116,6 +137,7 @@ All inputs are optional.
 | `dev_label`          | Label name on deploy to development enviornment | `target:develop` |
 | `stg_label`          | Label name on deploy to staging enviornment | `target:staging` |
 | `prod_label`         | Label name on deploy to production enviornment | `target:production` |
+| `custom_comment`     | Additional comments (Markdown is supported) | empty |
 
 ### Action outputs
 The working directory outputs as an array. If `target:all` is specified, the following array is output.
