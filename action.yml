@@ -34,7 +34,7 @@ inputs:
   custom_comment:
     default: ""
     required: false
-    description: "Additional comments (Can be used Markdown)"
+    description: "Additional comments (Markdown is supported)"
 
 runs:
   using: "composite"
