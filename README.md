@@ -1,4 +1,7 @@
 # set-terraform-matrix
+> **Warning**  
+> This project is currently not maintained; please migrate to [ponkio-o/select-target-action](https://github.com/ponkio-o/select-target-action)
+
 This Action is used to dynamically generate Terraform's working directory using GitHub PR Label, in use with [build-matrix](https://docs.github.com/en/actions/using-jobs/using-a-build-matrix-for-your-jobs).
 
 ## Setup
